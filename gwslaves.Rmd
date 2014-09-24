@@ -1,0 +1,80 @@
+The Enslaved Community at George Washington's Mount Vernon
+-----------------------------------------------------------------------------------
+I used George Washington's 1799 slave census from Mount Vernon
+for my dataset. 
+
+````{r}
+slavesgw <- read.csv("~/Desktop/MountVernon/Spreadsheets/slavesgw.csv", stringsAsFactors = FALSE)
+library("ggplot2")
+library(dplyr)
+```
+
+This chart shows how many slaves were born each year.
+````{r}
+ggplot(data = slavesgw, aes(x = Birth.Year)) + geom_bar()
+````
+
+This chart show the number of slaves on each farm and shows the five main farms in 1799.
+````{r}
+ggplot(data = slavesgw, aes(x = Farm)) + geom_bar() + theme(axis.text.x=element_text(angle = 90, hjust = 0))
+````
+
+This chart shows the gender ratio for the farms in 1799. More males
+resided at Mansion House farm than females, but more females worked at every other main farm. You can draw an argument about gender roles and plantation hierarchy from this plot. Mansion House offered the jobs that required special skills, like carpentry, and more males held those jobs than females. It seems that male slaves had higher status than female slaves on Mount Vernon.
+````{r}
+ggplot(data = slavesgw, aes(x = Farm)) + geom_bar() + facet_wrap(~ Gender + Census) + theme(axis.text.x=element_text(angle = 90, hjust = 0))
+````
+
+This chart shows the gender ratio for each occupation. More females worked in the fields than males. Farm work was low on the plantation hierarchy, and 
+mostly females held this occupation. 
+````{r}
+ggplot(data = slavesgw, aes(x = Skill )) + geom_bar() + facet_wrap(~ Gender) + theme(axis.text.x=element_text(angle = 90, hjust = 0))
+````
+
+This chart shows the different slave occupations on each farm. Mansion House 
+farm included almost all of the skilled workers, because it was the main 
+industrial hub.
+````{r}
+ggplot(data = slavesgw, aes(x = Skill)) + geom_bar() + facet_wrap(~ Farm) + theme(axis.text.x=element_text(angle = 90, hjust = 0))
+````
+
+This chart shows the distribution of slaves on each farm based on their owner. 
+You can see that French's slaves mostly resided on Union Farm. Her farm evolved
+into Union Farm before this census. 
+````{r}
+ggplot(data = slavesgw, aes(x = Farm)) + geom_bar() + facet_grid(~ Owner + Census) + theme(axis.text.x=element_text(angle = 90, hjust = 0))
+````
+
+This following plots show the skills at each of the five main farms. 
+````{r}
+slavesgw %>%
+  filter(Farm == "Mansion House") %>% 
+  ggplot(aes(x = Skill)) + geom_bar() + facet_wrap(~ Farm) + theme(axis.text.x=element_text(angle = 90, hjust = 0))
+````
+
+````{r}
+slavesgw %>%
+  filter(Farm == "Dogue Run") %>% 
+  ggplot(aes(x = Skill)) + geom_bar() + facet_wrap(~ Farm) + theme(axis.text.x=element_text(angle = 90, hjust = 0))
+````
+
+````{r}
+slavesgw %>%
+  filter(Farm == "Union Farm") %>% 
+  ggplot(aes(x = Skill)) + geom_bar() + facet_wrap(~ Farm) + theme(axis.text.x=element_text(angle = 90, hjust = 0))
+````
+
+````{r}
+slavesgw %>%
+  filter(Farm == "River Farm") %>% 
+  ggplot(aes(x = Skill)) + geom_bar() + facet_wrap(~ Farm) + theme(axis.text.x=element_text(angle = 90, hjust = 0))
+````
+
+````{r}
+slavesgw %>%
+  filter(Farm == "Muddy Hole") %>% 
+  ggplot(aes(x = Skill)) + geom_bar() + facet_wrap(~ Farm) + theme(axis.text.x=element_text(angle = 90, hjust = 0))
+````
+
+
+
